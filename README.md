@@ -1,28 +1,26 @@
 # Heroku Deploy
 
 **Important Notes**
-1. This Branch only for deploying, generate all your private files from master branch.
-2. If you want to edit aria.sh or qBittorrent.conf or any other file in bot folder you must add `UPSTREAM_REPO` of your edited public or private fork else you will get official code all your will not take effect.
-3. Use this branch to avoid suspension `OR` deploy master branch twice with same app name (check helper.sh for help). To stay up to date don't fill `UPSTREAM_REPO`, on each `dyno restart` you will get lastest commits from official repository or fill `UPSTREAM_REPO` by your public/private fork link and fetch manually then you can update your bot by `restart cmd` and `dyno restart`.
-4. Don't delete .gitignore file.
-5. Read all variables definitions from master branch readme.
-6. Don't edit variables from Heroku, if you want to edit simply do it in config.env from gists if using gists or from private repository if added in it, then restart your app.
-7. Keep the programmer inside you away and follow the steps.
+1. Generate all your private files from master branch (token.pickle, config.env, drive_folder, cookies.txt etc...) since the generators not available in heroku branch but you should add the private files in heroku branch not in master or use variables links in `config.env`.
+2. Don't add variables in heroku Environment, you can only add `CONFIG_FILE_URL`.
+3. Don't deploy using hmanager or github integration.
+4. This branch use megasdkrest and latest version of qBittorrent.
+5. More notes will be added soon for h-code branch...
 
 ------
 
-## With CLI
+## Deploy With CLI
 
 - Clone this repo:
 ```
 git clone https://github.com/anasty17/mirror-leech-telegram-bot mirrorbot/ && cd mirrorbot
 ```
 - Switch to heroku branch
-  - **NOTE**: Don't commit changes in master branch. If you have committed your changes in master branch and after that you switched to heroku branch, the new added files will `NOT` appear in heroku branch.
+  - **NOTE**: Don't commit changes in master branch. If you have committed your changes in master branch and after that you switched to heroku branch, the new added files(private files) will `NOT` appear in heroku branch.
 ```
 git checkout heroku
 ```
-- After adding your private data
+- After adding your private files
 ```
 git add . -f
 ```
@@ -55,7 +53,7 @@ git push heroku heroku:master -f
 
 ### Extras
 
-- To heroku-postgresql database
+- To create heroku-postgresql database
 ```
 heroku addons:create heroku-postgresql
 ```
@@ -86,7 +84,7 @@ heroku logs -t
 
 ------
 
-## With Github Workflow
+## Deploy With Github Workflow
 
 1. Go to Repository Settings -> Secrets
 
@@ -109,13 +107,13 @@ heroku logs -t
    - Before: https://gist.githubusercontent.com/anasty17/8cce4a4b4e7f4ea47e948b2d058e52ac/raw/19ba5ab5eb43016422193319f28bc3c7dfb60f25/config.env
    - After: https://gist.githubusercontent.com/anasty17/8cce4a4b4e7f4ea47e948b2d058e52ac/raw/config.env
 
-   - You only need to restart your bot after editing config.env Gist secret.
+4. Add all your private files in this branch or use variables links in `config.env`.
 
-4. After adding all the above Required Variables go to Github Actions tab in your repository.
+5. After adding all the above Required Variables go to Github Actions tab in your repository.
    - Select Manually Deploy to Heroku workflow as shown below:
 
 ![Select Manual Deploy](https://telegra.ph/file/cff1c24de42c271b23239.jpg)
 
-5. Then click on Run workflow
+6. Choose `heroku` branch and click on Run workflow
 
 ![Run Workflow](https://telegra.ph/file/f44c7465d58f9f046328b.png)
